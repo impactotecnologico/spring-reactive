@@ -1,17 +1,18 @@
 package net.impactotecnologico.reactivos.services;
 
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.log4j.Log4j2;
+import net.impactotecnologico.reactivos.events.ProfileCreatedEvent;
+import net.impactotecnologico.reactivos.models.Profile;
 import net.impactotecnologico.reactivos.repositories.ProfileRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Log4j2
 @Service
-class ProfileService {
+public class ProfileService {
 
     private final ApplicationEventPublisher publisher; 
     private final ProfileRepository profileRepository; 
@@ -22,6 +23,7 @@ class ProfileService {
     }
 
     public Flux<Profile> all() { 
+    	log.info("obteniendo todos");
         return this.profileRepository.findAll();
     }
 

@@ -5,17 +5,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Document
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-class Profile {
+public class Profile {
 
 	@Id
 	private String id;
 
-	@SuppressWarnings("unused")
 	private String email;
 }
