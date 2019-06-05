@@ -1,0 +1,573 @@
+{
+	"info": {
+		"_postman_id": "ceab16cd-f80b-416b-ba8f-15c0b66384d6",
+		"name": "Reactive-Profiles",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "securizados",
+			"item": [
+				{
+					"name": "postProfileAdmin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a711459c-61de-4ed4-9a97-cdceab76de71",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"username\":\"jose@impacto.net\",\n\"password\":\"net\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/profile/admin",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"profile",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loginAdmin - 200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "09aed334-76cf-4cc7-9557-e2a18038b486",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"",
+									"pm.environment.set(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"username\":\"jose@impacto.net\",\n\"password\":\"net\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/profile/login",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"profile",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postProfileNew as Admin - 201",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a711459c-61de-4ed4-9a97-cdceab76de71",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"username\":\"usuario\",\n\"password\":\"usuario\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/profile/new",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"profile",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login as User - 200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "09aed334-76cf-4cc7-9557-e2a18038b486",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"",
+									"pm.environment.set(\"tokenUsuario\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"username\":\"usuario\",\n\"password\":\"usuario\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/profile/login",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"profile",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProfile - 401",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e4c30059-2aa3-4f77-9f23-98d87ca15530",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{HOST}}/profile/jose@impacto.net",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"profile",
+								"jose@impacto.net"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProfileAdmin - 200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e4c30059-2aa3-4f77-9f23-98d87ca15530",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{HOST}}/profile/jose@impacto.net",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"profile",
+								"jose@impacto.net"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProfileUsuario - 200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e4c30059-2aa3-4f77-9f23-98d87ca15530",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{HOST}}/profile/usuario",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"profile",
+								"usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll as Admin - 200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c456cace-6c9d-457d-8d50-f497e91f9a08",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/profile",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"profile"
+							],
+							"query": [
+								{
+									"key": "Auth",
+									"value": "Bearer {{token}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll as User- 403",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e3c80e0c-21e8-49d3-8568-dfb407c64323",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{tokenUsuario}}"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/profile",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"profile"
+							],
+							"query": [
+								{
+									"key": "Auth",
+									"value": "Bearer {{tokenUsuario}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAll As Admin - 200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e4c30059-2aa3-4f77-9f23-98d87ca15530",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{HOST}}/profile/",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAll as User - 401",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e4c30059-2aa3-4f77-9f23-98d87ca15530",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tokenUsuario}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{HOST}}/profile/",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getAll - 200",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{HOST}}/profiles",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"profiles"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postProfile - 201",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"email\":\"jose@impacto.net\"\n}"
+				},
+				"url": {
+					"raw": "{{HOST}}/profiles/",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"profiles",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
