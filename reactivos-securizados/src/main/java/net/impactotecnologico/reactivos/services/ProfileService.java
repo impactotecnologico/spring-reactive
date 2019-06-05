@@ -3,11 +3,9 @@ package net.impactotecnologico.reactivos.services;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.log4j.Log4j2;
-import net.impactotecnologico.reactivos.events.ProfileCreatedEvent;
 import net.impactotecnologico.reactivos.models.Profile;
 import net.impactotecnologico.reactivos.models.security.Role;
 import net.impactotecnologico.reactivos.repositories.ProfileRepository;
@@ -19,9 +17,6 @@ import reactor.core.publisher.Mono;
 @Service
 public class ProfileService {
 
-	@Autowired
-	private ApplicationEventPublisher publisher; 
-    
 	@Autowired
 	private ProfileRepository profileRepository; 
     
@@ -41,9 +36,7 @@ public class ProfileService {
     public Mono<Profile> create(String username, String password, Role role) { 
     	
     	Profile p = new Profile(null, username, encoder.encode(password), Boolean.TRUE, Arrays.asList(role));
-        return this.profileRepository
-            .save(p)
-            .doOnSuccess(profile -> this.publisher.publishEvent(new ProfileCreatedEvent(profile)));
+        return this.profileRepository.save(p);
     }
 
     public Mono<Profile> delete(String username) { 
