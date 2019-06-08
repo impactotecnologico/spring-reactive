@@ -24,17 +24,14 @@ public class ReactivosApplicationServerSend {
 
 		Flux<ServerSentEvent<String>> eventStream = client.get().uri("/sending").retrieve().bodyToFlux(type);
 
-		eventStream.subscribe(content -> {
-			/*
-			Object[] objects = new Object[]{ LocalTime.now(), content.event(), content.id(), content.data() };
-			MessageFormat.format("Time: {} - event: name[{}], id [{}], content[{}] ", objects);
-			*/
+		eventStream.subscribe(
+		content -> {
 			System.out.print(content.event() + ":");
 			System.out.print(content.id() + ":");
 			System.out.println(content.data());
-		}, error -> System.err.println("Error receiving SSE: " + error), () -> {
+		}, error -> System.err.println("Error receiving SSE: " + error), 
+		() -> {
 			System.out.println("Completed!!!");
-			
 		});
 	}
 
