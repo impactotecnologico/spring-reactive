@@ -12,6 +12,7 @@ import reactor.core.publisher.Mono;
  */
 public class App {
 	public static void main(String[] args) {
+		
 		Flux<String> seq1 = Flux.just("foo", "bar", "foobar");
 
 		List<String> iterable = Arrays.asList("foo", "bar", "foobar");
@@ -41,12 +42,13 @@ public class App {
 		
 		System.out.println("........................");
 		
+		int a = 10;
 		
 		Flux<Integer> ints3 = Flux.range(1, 40);
 		ints3.subscribe(i -> System.out.println(i),
 		    error -> System.err.println("Error " + error),
 		    () -> System.out.println("Done"),
-		    sub -> sub.request(10));
+		    sub -> sub.request(a));
 		
 	}
 }

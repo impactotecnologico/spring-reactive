@@ -3,7 +3,7 @@ public class Suscriptor {
 
 	public static void multiplicar(Integer n)  {
 	    try {
-	        Thread.sleep(5000);
+	        Thread.sleep(1000);
 	    } catch (InterruptedException e) {
 	        e.printStackTrace();
 	    }

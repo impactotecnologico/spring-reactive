@@ -35,7 +35,8 @@ public class ProfileService {
     
     public Mono<Profile> create(String username, String password, Role role) { 
     	
-    	Profile p = new Profile(null, username, encoder.encode(password), Boolean.TRUE, Arrays.asList(role));
+    	Profile p = new Profile(null, username, 
+    			encoder.encode(password), Boolean.TRUE, Arrays.asList(role));
         return this.profileRepository.save(p);
     }
 

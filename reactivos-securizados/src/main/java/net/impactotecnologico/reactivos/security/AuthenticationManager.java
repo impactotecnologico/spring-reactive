@@ -38,10 +38,13 @@ public class AuthenticationManager implements ReactiveAuthenticationManager {
 			for (String rolemap : rolesMap) {
 				roles.add(Role.valueOf(rolemap));
 			}
-			UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+			UsernamePasswordAuthenticationToken auth = 
+					new UsernamePasswordAuthenticationToken(
 				username,
 				null,
-				roles.stream().map(authority -> new SimpleGrantedAuthority(authority.name())).collect(Collectors.toList())
+				roles.stream().map(authority -> 
+				new SimpleGrantedAuthority(
+						authority.name())).collect(Collectors.toList())
 			);
 			return Mono.just(auth);
 		} else {

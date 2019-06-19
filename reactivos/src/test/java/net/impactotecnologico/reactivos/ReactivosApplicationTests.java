@@ -42,17 +42,17 @@ public class ReactivosApplicationTests {
         
     }
     
-//
-//    @Test
-//    public void update() throws Exception {
-//        Mono<Profile> saved = this.service
-//            .create("test")
-//            .flatMap(p -> this.service.update(p.getId(), "test1"));
-//        StepVerifier
-//            .create(saved)
-//            .expectNextMatches(p -> p.getEmail().equalsIgnoreCase("test1"))
-//            .verifyComplete();
-//    }
+
+    @Test
+    public void update() throws Exception {
+        Mono<Profile> saved = this.service
+            .create("test")
+            .flatMap(p -> this.service.update(p.getId(), "test1"));
+        StepVerifier
+            .create(saved)
+            .expectNextMatches(p -> p.getEmail().equalsIgnoreCase("test1"))
+            .verifyComplete();
+    }
 //
 //    @Test
 //    public void getById() {

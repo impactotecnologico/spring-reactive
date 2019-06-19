@@ -1,8 +1,5 @@
 package net.impactotecnologico.reactivos;
 
-import java.text.MessageFormat;
-import java.time.LocalTime;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.ParameterizedTypeReference;
@@ -17,12 +14,15 @@ public class ReactivosApplicationServerSend {
 	public static void main(String[] args) {
 		SpringApplication.run(ReactivosApplicationServerSend.class, args);
 
-		System.out.println("------------");
-		WebClient client = WebClient.create("http://localhost:8088");
-		ParameterizedTypeReference<ServerSentEvent<String>> type = new ParameterizedTypeReference<ServerSentEvent<String>>() {
+		WebClient client = WebClient.create("http://localhost:9092");
+		
+		
+		ParameterizedTypeReference<ServerSentEvent<String>> type 
+		= new ParameterizedTypeReference<ServerSentEvent<String>>() {
 		};
 
-		Flux<ServerSentEvent<String>> eventStream = client.get().uri("/sending").retrieve().bodyToFlux(type);
+		Flux<ServerSentEvent<String>> eventStream = 
+				client.get().uri("/sending").retrieve().bodyToFlux(type);
 
 		eventStream.subscribe(
 		content -> {

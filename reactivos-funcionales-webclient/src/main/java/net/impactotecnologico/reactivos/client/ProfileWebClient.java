@@ -11,14 +11,15 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public class ProfileWebClient {
-    private WebClient client = WebClient.create("http://localhost:8088");
+    private WebClient client = WebClient.create("http://localhost:9092");
+    
     private Mono<ClientResponse> result = client.get()
             .uri("/profiles")
             .accept(MediaType.APPLICATION_JSON_UTF8)
             .exchange();
     
     private Mono<Profile> singleProfile = client.get()
-            .uri("/profiles/5cf56cacf0c1d851704b0905")
+            .uri("/profiles/5cf56d15f0c1d84680893c17")
             .accept(MediaType.APPLICATION_JSON_UTF8)
             .exchange()
             .flatMap(res -> res.bodyToMono(Profile.class));

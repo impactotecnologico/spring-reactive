@@ -1,7 +1,5 @@
 package net.impactotecnologico.reactivos.controllers;
-
 import java.net.URI;
-
 import org.reactivestreams.Publisher;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import net.impactotecnologico.reactivos.models.Profile;
 import net.impactotecnologico.reactivos.services.ProfileService;
 import reactor.core.publisher.Mono;
-
 @RestController 
 @RequestMapping(value = "/profiles", produces = MediaType.APPLICATION_JSON_VALUE)  
 public class ProfileRestController {
@@ -33,7 +30,6 @@ public class ProfileRestController {
     Publisher<Profile> getAll() {
         return this.profileRepository.all();
     }
-
     
     @GetMapping("/{id}")
     Publisher<Profile> getById(@PathVariable("id") String id) {

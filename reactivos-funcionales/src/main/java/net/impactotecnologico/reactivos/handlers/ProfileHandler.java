@@ -48,12 +48,34 @@ public class ProfileHandler {
             .flatMap(toWrite -> this.profileService.create(toWrite.getEmail()));
         return defaultWriteResponse(flux);
     }
-
+    
+    public Mono<ServerResponse> create2(ServerRequest request) {
+//        Flux<Profile> flux = request
+//            .bodyToFlux(Profile.class)
+//            .flatMap(toWrite -> this.profileService.create2(toWrite.getEmail()));
+        
+        Mono<Void> mono = request
+                .bodyToMono(Profile.class)
+                .flatMap(toWrite -> this.profileService.create2(toWrite.getEmail()));
+        
+        return defaultWriteResponse2(mono);
+    }
+    
     private static Mono<ServerResponse> defaultWriteResponse(Publisher<Profile> profiles) {
         return Mono
             .from(profiles)
             .flatMap(p -> ServerResponse
                 .created(URI.create("/profiles/" + p.getId()))
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .build()
+            );
+    }
+
+    private static Mono<ServerResponse> defaultWriteResponse2(Publisher<Void> profiles) {
+        return Mono
+            .from(profiles)
+            .flatMap(p -> ServerResponse
+                .created(URI.create("/profiles/"))
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .build()
             );
@@ -71,3 +93,27 @@ public class ProfileHandler {
         return r.pathVariable("id");
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

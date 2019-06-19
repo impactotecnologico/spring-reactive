@@ -12,7 +12,7 @@ public class Snippet {
 
 					@Override
 					public void hookOnSubscribe(Subscription subscription) {
-						request(1);
+						request(50);
 					}
 
 					@Override
@@ -20,7 +20,12 @@ public class Snippet {
 						
 						// alguna lógica de validación aquí
 						System.out.println("Cancelando después de recibir " + integer);
-						cancel();
+						
+//						if (condition) {
+//							cancel();
+//						}
+//						
+//						request(1);
 					}
 				});
 	}

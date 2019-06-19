@@ -22,6 +22,16 @@ public class ProfileService {
         this.profileRepository = profileRepository;
     }
 
+    
+    public Mono<Profile> create(String email) { 
+        return this.profileRepository
+            .save(new Profile(null, email))
+            .doOnSuccess(profile -> 
+            this.publisher.publishEvent(
+            		
+            		new ProfileCreatedEvent(profile)));
+    }
+    
     public Flux<Profile> all() { 
     	log.info("obteniendo todos");
         return this.profileRepository.findAll();
@@ -44,9 +54,5 @@ public class ProfileService {
             .flatMap(p -> this.profileRepository.deleteById(p.getId()).thenReturn(p));
     }
 
-    public Mono<Profile> create(String email) { 
-        return this.profileRepository
-            .save(new Profile(null, email))
-            .doOnSuccess(profile -> this.publisher.publishEvent(new ProfileCreatedEvent(profile)));
-    }
+   
 }

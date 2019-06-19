@@ -10,24 +10,25 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import net.impactotecnologico.reactivos.models.Profile;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-
 public class ReactivosApplicationWebClientTest {
 	
 	@Autowired 
 	private WebTestClient webTestClient; 
-
 	
 	@Test
-    public void getSimpleTest() {
-
+	public void getTest() {
+		
 		webTestClient.get().uri("/profiles")
-        .accept(MediaType.APPLICATION_JSON_UTF8)
-        .exchange()
-        .expectStatus().isOk()
-        .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
-        .expectBodyList(Profile.class)
-        .consumeWith(response ->
-        	Assertions.assertTrue(!response.getResponseBody().isEmpty()));
-    }
+			.accept(MediaType.APPLICATION_JSON_UTF8)
+			.exchange()
+			.expectStatus().is4xxClientError()
+			.expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+			.expectBodyList(Profile.class)
+			.consumeWith(response -> 
+				Assertions.assertFalse(response.getResponseBody().isEmpty()));
+		
+	}
+	
+
 
 }

@@ -13,6 +13,7 @@ public class Main {
 		    error -> System.err.println("Error " + error),
 		    () -> {System.out.println("Done");},
 		    s -> s.request(10));
+		
 		ints.subscribe(ss);
 	}
 }

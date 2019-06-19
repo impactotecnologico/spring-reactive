@@ -49,4 +49,10 @@ public class ProfileService {
             .save(new Profile(null, email))
             .doOnSuccess(profile -> this.publisher.publishEvent(new ProfileCreatedEvent(profile)));
     }
+    
+    
+    public Mono<Void> create2(String email) { 
+        return this.profileRepository
+            .save(new Profile(null, email)).then();
+    }
 }
